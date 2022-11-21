@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import React from "react"
 import './App.css';
-
+import Header from "./components/Header/Header.jsx"
+import ReactModal from "react-modal";
+import {useState} from 'react';
+import * as Icon from 'react-feather';
 function App() {
+  ReactModal.setAppElement('#root');
+
+  //const [desc,setDesc]=useState('');
+  const [todos,setTodos]=useState([]);
+
+  const addTodo=(title,desc)=>{
+    setTodos([...todos,{title,desc}])
+    console.log(title,desc,todos);
+  }
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header 
+      addTodo={addTodo}
+      />
+      <br/>
+      <div className="todo-list">
+      <ul>
+        {todos.map((todo,i)=>{
+          
+          return <li key={i}>
+            <span><Icon.Check /></span>{todo.title}
+            <br/><small>{todo.desc}</small>
+                
+                </li>
+        })}
+      </ul>
+      </div>
+      
     </div>
   );
 }
