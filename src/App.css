@@ -84,10 +84,13 @@ input:focus{
   display: flex;
   align-items: center;
   gap: 10px;
+  margin:10px;
+  width: 50vw;
+  width: 50vw;
  }
  .todo-list>ul>li>span{
   border: 1px black solid;
-  padding: 0px;
+  padding: 4px 5px 2px 5px;
   box-sizing: border-box;
   border-radius: 50%;
  }

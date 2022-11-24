@@ -7,14 +7,16 @@ import * as Icon from 'react-feather';
 function App() {
   ReactModal.setAppElement('#root');
 
-  //const [desc,setDesc]=useState('');
   const [todos,setTodos]=useState([]);
 
   const addTodo=(title,desc)=>{
     setTodos([...todos,{title,desc}])
     console.log(title,desc,todos);
   }
- 
+  const deleteHandle=(index)=>{
+    var deletedTodos=todos.filter((todo,i)=>{return i!=index? todo:""})
+    setTodos(deletedTodos);
+  }
   return (
     <div className="App">
       <Header 
@@ -28,8 +30,7 @@ function App() {
           return <li key={i}>
             <span><Icon.Check /></span>{todo.title}
             <br/><small>{todo.desc}</small>
-                
-                </li>
+                <span onClick={()=>{deleteHandle(i)}}><Icon.X /></span></li>
         })}
       </ul>
       </div>
