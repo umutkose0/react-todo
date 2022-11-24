@@ -94,3 +94,18 @@ input:focus{
   box-sizing: border-box;
   border-radius: 50%;
  }
+ .todo-list>ul>li>div:nth-child(1){
+  display: flex;
+  flex:1;
+  justify-content: end;
+ }
+ .todo-list>ul>li>div:nth-child(2){
+  display: flex;
+  flex:4;
+  flex-direction: column;
+ }
+ .todo-list>ul>li>div:nth-child(3){
+  display: flex;
+  flex:1;
+ }
+ 
