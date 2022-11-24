@@ -6,16 +6,26 @@ import {useState,useEffect} from 'react';
 import * as Icon from 'react-feather';
 function App() {
   ReactModal.setAppElement('#root');
-
+  const [filtered,setFiltered]=useState([]);
   const [todos,setTodos]=useState([]);
-
+  const searchHandle=(text)=>{
+    text?
+    setFiltered(todos.filter((todo)=>{return todo.title.includes(text)? todo :""}))
+    : setFiltered(todos);
+    console.log(filtered,text);
+  }
   const addTodo=(title,desc)=>{
     setTodos([...todos,{title,desc,completed:false}])
-    console.log(title,desc,todos);
   }
   const deleteHandle=(index)=>{
-    var deletedTodos=todos.filter((todo,i)=>{return i!=index? todo:""})
+    var deletedTodos=todos.filter((todo,i)=>{return i!==index? todo:""})
     setTodos(deletedTodos);
+  }
+  const checkHandle=(index)=>{
+    var updatedTodo=todos[index];
+    updatedTodo.completed=!updatedTodo.completed;
+    var checkedTodos=todos.filter((todo,i)=>{return i!=index? todo :updatedTodo});
+    setTodos(checkedTodos);
   }
   useEffect(()=>{
     if (localStorage.getItem("todos"))
@@ -29,19 +39,23 @@ function App() {
     <div className="App">
       <Header 
       addTodo={addTodo}
+      searchHandle={searchHandle}
       />
       <br/>
       <div className="todo-list">
       <ul>
-        {todos.map((todo,i)=>{
+        
+        {
+         
+        filtered.map((todo,i)=>{
           
           return <li key={i}>
               <div>
-                <span>
+                <span onClick={()=>{checkHandle(i)}}>
                   {todo.completed? <Icon.Check /> :<Icon.Calendar />}
                 </span>
               </div>
-              <div>
+              <div className={todo.completed? "completed":""}>
                 {todo.title}
                 <br/><small>{todo.desc}</small>
               </div>

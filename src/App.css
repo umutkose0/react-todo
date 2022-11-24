@@ -108,4 +108,7 @@ input:focus{
   display: flex;
   flex:1;
  }
+ .completed{
+    text-decoration: line-through;
+ }
  
