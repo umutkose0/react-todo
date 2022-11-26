@@ -1,7 +1,7 @@
 import ReactModal from "react-modal";
 import {useEffect, useState} from "react"
 
-const Header=({addTodo,searchHandle})=>{
+const Header=({addTodo,searchHandle,search,setSearch})=>{
     
     const customStyles={
         content:{
@@ -26,7 +26,7 @@ const Header=({addTodo,searchHandle})=>{
     const [modalIsOpen,setIsOpen]=useState(false);
     const [title,setTitle]=useState('');
     const [desc,setDesc]=useState('');
-    const [search,setSearch]=useState('');
+    
     const clickHandle=()=>{
         setIsOpen(true);
     }

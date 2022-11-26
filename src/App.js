@@ -7,39 +7,62 @@ import * as Icon from 'react-feather';
 function App() {
   ReactModal.setAppElement('#root');
   const [filtered,setFiltered]=useState([]);
+  const [search,setSearch]=useState('');
   const [todos,setTodos]=useState([]);
   const searchHandle=(text)=>{
     text?
     setFiltered(todos.filter((todo)=>{return todo.title.includes(text)? todo :""}))
     : setFiltered(todos);
-    console.log(filtered,text);
+    //console.log(filtered,text);
   }
   const addTodo=(title,desc)=>{
-    setTodos([...todos,{title,desc,completed:false}])
+    let id=todos? todos.length:0;
+    setTodos([...todos,{id:id,title,desc,completed:false}])
   }
   const deleteHandle=(index)=>{
     var deletedTodos=todos.filter((todo,i)=>{return i!==index? todo:""})
     setTodos(deletedTodos);
   }
-  const checkHandle=(index)=>{
-    var updatedTodo=todos[index];
-    updatedTodo.completed=!updatedTodo.completed;
-    var checkedTodos=todos.filter((todo,i)=>{return i!=index? todo :updatedTodo});
-    setTodos(checkedTodos);
+
+  const checkHandle=(id)=>{
+    var updatedTodos=todos.map((todo)=>{
+      if(todo.id==id)
+      {
+        var temp=todo;
+        temp.completed=!temp.completed;
+        return temp;
+      }
+      else
+      {
+        return todo;
+      }
+    });
+    console.log(updatedTodos);
+    setTodos(updatedTodos);
   }
   useEffect(()=>{
     if (localStorage.getItem("todos"))
-       setTodos(JSON.parse(localStorage.getItem("todos")))
+    {
+      setTodos(JSON.parse(localStorage.getItem("todos")))
+      setFiltered(JSON.parse(localStorage.getItem("todos")))
+    }
   },[])
   useEffect(()=>{
     if(todos!="")
-    localStorage.setItem("todos",JSON.stringify(todos))
+    {
+      localStorage.setItem("todos",JSON.stringify(todos))
+      
+      searchHandle(search)
+    }
+    
   },[todos])
   return (
     <div className="App">
       <Header 
       addTodo={addTodo}
       searchHandle={searchHandle}
+      search={search}
+      setSearch={setSearch}
       />
       <br/>
       <div className="todo-list">
@@ -51,7 +74,7 @@ function App() {
           
           return <li key={i}>
               <div>
-                <span onClick={()=>{checkHandle(i)}}>
+                <span onClick={()=>{checkHandle(todo.id)}}>
                   {todo.completed? <Icon.Check /> :<Icon.Calendar />}
                 </span>
               </div>
