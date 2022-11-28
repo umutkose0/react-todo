@@ -2,6 +2,12 @@
   display:flex;
   flex-direction: column;
 }
+button{
+  border:0px;
+  border-radius: 3px;
+  padding:5px;
+  background-color:rgb(216, 212, 212);
+}
 Header{
   background-color: rgba(219,76,63,255);
   width:100vw;
@@ -21,7 +27,6 @@ Header{
   opacity:0.5;
   color:black;
   box-sizing: border-box;
-
 }
 .btn-add{
   width: 3vw;
@@ -34,11 +39,35 @@ Header{
   font-weight:lighter;
   font-family:  Times, 'Times New Roman', serif,Georgia;
 }
+.btn-clear{
+  font-weight: 300;
+  color:white;
+  background-color:transparent;
+  padding:5px 10px;
+  border:0;
+  opacity: 0.6;
+}
 input:focus{
   border:0;
   outline: 0;
   opacity:1;
 
+}
+
+.warning-form>:nth-child(1){
+  margin:5px;
+  padding:20px;
+  background-color:rgba(219,76,63,255);
+  color:white;
+}
+.warning-form>:nth-child(2){
+  margin:5px;
+  padding:20px;
+  transition: all 0.2s ease;
+}
+.warning-form>:nth-child(2):hover{
+  color:white;
+  background-color:rgba(219,76,63,255)
 }
 .todo-form>:nth-child(1){
   display:flex;
@@ -57,12 +86,7 @@ input:focus{
   gap:10px;
   justify-content: center;
  }
-.todo-form>:nth-child(2)>button{
- border:0px;
- border-radius: 3px;
- padding:5px;
- background-color:rgb(216, 212, 212);
-}
+
 .todo-form>:nth-child(2)>:nth-child(2){
   background-color:rgba(219,76,63,255);
   color:white;

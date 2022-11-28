@@ -19,9 +19,12 @@ function App() {
     setTodos([...todos,{id:id,title,desc,completed:false}])
   }
   const deleteHandle=(id)=>{
-    var deletedTodos=todos.filter((todo)=>{return todo.id!==id? todo:""})
+    var deletedTodos=todos.filter((todo)=>todo.id!==id);
     setTodos(deletedTodos);
-    console.log(deletedTodos,id);
+    setFiltered(deletedTodos);
+    setSearch('');
+    if(todos.length===1)
+        localStorage.clear();
   }
   const checkHandle=(id)=>{
     var updatedTodos=todos.map((todo)=>{
@@ -39,6 +42,12 @@ function App() {
     console.log(updatedTodos);
     setTodos(updatedTodos);
   }
+  const clearTodos=()=>{
+    localStorage.clear();
+    setTodos([]);
+    setFiltered([]);
+    setSearch('');
+  }
   useEffect(()=>{
     if (localStorage.getItem("todos"))
     {
@@ -50,10 +59,8 @@ function App() {
     if(todos!="")
     {
       localStorage.setItem("todos",JSON.stringify(todos))
-      
       searchHandle(search)
     }
-    
   },[todos])
   return (
     <div className="App">
@@ -62,6 +69,7 @@ function App() {
       searchHandle={searchHandle}
       search={search}
       setSearch={setSearch}
+      clearTodos={clearTodos}
       />
       <br/>
       <div className="todo-list">

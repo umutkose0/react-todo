@@ -1,7 +1,8 @@
 import ReactModal from "react-modal";
 import {useEffect, useState} from "react"
 
-const Header=({addTodo,searchHandle,search,setSearch})=>{
+
+const Header=({addTodo,clearTodos,searchHandle,search,setSearch})=>{
     
     const customStyles={
         content:{
@@ -24,6 +25,7 @@ const Header=({addTodo,searchHandle,search,setSearch})=>{
         }
     }
     const [modalIsOpen,setIsOpen]=useState(false);
+    const [warning,setWarning]=useState(false);
     const [title,setTitle]=useState('');
     const [desc,setDesc]=useState('');
     
@@ -38,6 +40,19 @@ const Header=({addTodo,searchHandle,search,setSearch})=>{
         addTodo(title,desc);
         closeModal();
     }
+    const warningHandle=()=>{
+        setWarning(true);
+    }
+    const closeWarning=()=>{
+        setWarning(false);
+    }
+    const clearHandle=(e)=>{
+        e.preventDefault();
+        closeWarning();
+        clearTodos();
+        setTitle('');
+        setDesc('');
+    }
     useEffect(()=>{
         searchHandle(search)
     },[search])
@@ -45,6 +60,7 @@ const Header=({addTodo,searchHandle,search,setSearch})=>{
         <header>
             <input className="txt-search" type="text" onChange={(e)=>{setSearch(e.target.value)}} value={search} />
             <button className="btn-add" onClick={clickHandle}>+</button>
+            <button className="btn-clear" onClick={warningHandle}>Clear all</button>
             <ReactModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -58,8 +74,22 @@ const Header=({addTodo,searchHandle,search,setSearch})=>{
           </div>
           <div>
           <button onClick={closeModal}>Cancel</button>
-          <button disabled={!title} onClick={saveHandle}>Save</button>
+          <button disabled={!title} onClick={saveHandle} type="submit">Save</button>
           </div>
+          
+        </form>
+      </ReactModal>
+      <ReactModal
+       isOpen={warning}
+       onRequestClose={closeModal}
+       style={customStyles}
+       contentLabel="Are you sure you want to clear all <b>todos</b> ?"
+       >
+        <form className="warning-form">
+          
+          <button onClick={closeWarning}>Cancel</button>
+          <button onClick={clearHandle}>Delete All Data</button>
+          
           
         </form>
       </ReactModal>
