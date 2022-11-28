@@ -13,17 +13,16 @@ function App() {
     text?
     setFiltered(todos.filter((todo)=>{return todo.title.includes(text)? todo :""}))
     : setFiltered(todos);
-    //console.log(filtered,text);
   }
   const addTodo=(title,desc)=>{
     let id=todos? todos.length:0;
     setTodos([...todos,{id:id,title,desc,completed:false}])
   }
-  const deleteHandle=(index)=>{
-    var deletedTodos=todos.filter((todo,i)=>{return i!==index? todo:""})
+  const deleteHandle=(id)=>{
+    var deletedTodos=todos.filter((todo)=>{return todo.id!==id? todo:""})
     setTodos(deletedTodos);
+    console.log(deletedTodos,id);
   }
-
   const checkHandle=(id)=>{
     var updatedTodos=todos.map((todo)=>{
       if(todo.id==id)
@@ -67,9 +66,7 @@ function App() {
       <br/>
       <div className="todo-list">
       <ul>
-        
         {
-         
         filtered.map((todo,i)=>{
           
           return <li key={i}>
@@ -83,7 +80,7 @@ function App() {
                 <br/><small>{todo.desc}</small>
               </div>
               <div>
-                <span onClick={()=>{deleteHandle(i)}}>
+                <span onClick={()=>{deleteHandle(todo.id)}}>
                     <Icon.X />
                 </span>
               </div>
