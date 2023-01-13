@@ -39,6 +39,8 @@ const Header=({addTodo,clearTodos,searchHandle,search,setSearch})=>{
         e.preventDefault();
         addTodo(title,desc);
         closeModal();
+        setDesc('');
+        setTitle('');
     }
     const warningHandle=()=>{
         setWarning(true);
