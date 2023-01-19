@@ -15,8 +15,13 @@ function App() {
     : setFiltered(todos);
   }
   const addTodo=(title,desc)=>{
-    let id=todos? todos.length:0;
-    setTodos([...todos,{id:id,title,desc,completed:false}])
+    if(title.trim()!="")
+    {
+      let id=todos? todos.length:0;
+      setTodos([{id:id,title,desc,completed:false},...todos])
+    }
+    else
+      alert("Please type a title.");
   }
   const deleteHandle=(id)=>{
     var deletedTodos=todos.filter((todo)=>todo.id!==id);
@@ -83,7 +88,7 @@ function App() {
                   {todo.completed? <Icon.Check /> :<Icon.Calendar />}
                 </span>
               </div>
-              <div className={todo.completed? "completed":""}>
+              <div className={(todo.completed? "completed":"")+" todo"}>
                 {todo.title}
                 <br/><small>{todo.desc}</small>
               </div>

@@ -1,7 +1,6 @@
 import ReactModal from "react-modal";
 import {useEffect, useState} from "react"
 
-
 const Header=({addTodo,clearTodos,searchHandle,search,setSearch})=>{
     
     const customStyles={
@@ -60,7 +59,7 @@ const Header=({addTodo,clearTodos,searchHandle,search,setSearch})=>{
     },[search])
     return (
         <header>
-            <input className="txt-search" type="text" onChange={(e)=>{setSearch(e.target.value)}} value={search} />
+            <input  className="txt-search" type="text" onChange={(e)=>{setSearch(e.target.value)}} value={search} placeholder="Search..." />
             <button className="btn-add" onClick={clickHandle}>+</button>
             <button className="btn-clear" onClick={warningHandle}>Clear all</button>
             <ReactModal
@@ -69,18 +68,18 @@ const Header=({addTodo,clearTodos,searchHandle,search,setSearch})=>{
         style={customStyles}
         contentLabel="Add Todo"
       >
-        <form className="todo-form">
+        <form className="todo-form" id="todo-form" onSubmit={saveHandle}>
             <div>
                 <input onChange={(e)=>{setTitle(e.target.value)}} value={title} placeholder="Title"/>
                 <input onChange={(e)=>{setDesc(e.target.value)}} value={desc} placeholder="Description"/>
           </div>
           <div>
           <button onClick={closeModal}>Cancel</button>
-          <button disabled={!title} onClick={saveHandle} type="submit">Save</button>
+          <button disabled={!title}  type="submit">Save</button>
           </div>
-          
         </form>
       </ReactModal>
+      
       <ReactModal
        isOpen={warning}
        onRequestClose={closeModal}
@@ -91,7 +90,6 @@ const Header=({addTodo,clearTodos,searchHandle,search,setSearch})=>{
           
           <button onClick={closeWarning}>Cancel</button>
           <button onClick={clearHandle}>Delete All Data</button>
-          
           
         </form>
       </ReactModal>

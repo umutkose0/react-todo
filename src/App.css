@@ -127,12 +127,14 @@ input:focus{
   display: flex;
   flex:4;
   flex-direction: column;
+  word-break: break-all;
  }
  .todo-list>ul>li>div:nth-child(3){
   display: flex;
   flex:1;
  }
+
  .completed{
-    text-decoration: line-through;
+    text-decoration: line-through green;
  }
  
